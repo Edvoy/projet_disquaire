@@ -1,0 +1,14 @@
+'''
+Fichier regroupant toute les URL des différentes vues de l'App
+Django est très flexible avec les URL
+
+https://docs.djangoproject.com/fr/3.1/topics/http/urls/
+https://docs.djangoproject.com/fr/3.1/ref/urls/
+'''
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.listing, name="Listing"),
+    ]
