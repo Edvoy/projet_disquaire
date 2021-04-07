@@ -6,7 +6,7 @@ une erreur 404, un document XML, une image… ou vraiment n’importe quoi d’a
 La vue elle-même contient la logique nécessaire pour renvoyer une réponse.
 '''
 
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 
 from .models import Album, Artist, Contact, Booking
 
@@ -27,7 +27,7 @@ def listing(request):
     return render(request, 'store/listening.html', context)
 
 def detail(request, album_id):
-    album = Album.objects.get(pk=album_id)
+    album = get_object_or_404(Album, pk=album_id)
     artists_name = " ".join([artist.name for artist in album.artists.all()])
     context = {
     'album_title': album.title,
