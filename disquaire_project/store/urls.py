@@ -5,12 +5,14 @@ Django est très flexible avec les URL
 https://docs.djangoproject.com/fr/3.1/topics/http/urls/
 https://docs.djangoproject.com/fr/3.1/ref/urls/
 '''
+from django.conf.urls import url
 
-from django.urls import path, re_path
 from . import views
 
+app_name='store'
+
 urlpatterns = [
-    path('', views.listing, name="Listing"),
-    re_path(r'^(?P<album_id>[0-9]+)/$', views.detail),
-    re_path(r'^search/$', views.search),
-    ]
+    url(r'^$', views.listing, name='listing'),
+    url(r'^(?P<album_id>[0-9]+)/$', views.detail, name='detail'),
+    url(r'^search/$', views.search, name='search'),
+]

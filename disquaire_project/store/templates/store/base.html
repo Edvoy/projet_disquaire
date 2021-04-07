@@ -43,7 +43,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="/">Tous nos disques</a>
+                        <a href="{% url 'store:listing' %}">Tous nos disques</a>
                     </li>
                 </ul>
             </div>
@@ -56,7 +56,7 @@
     <div class="container">
       <div class="row">
         <div class="box">
-        {% block content %}{% endblock content %}
+          {% block content %}{% endblock %}
         </div>
       </div>
     </div>
