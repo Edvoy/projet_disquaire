@@ -7,8 +7,30 @@ La vue elle-même contient la logique nécessaire pour renvoyer une réponse.
 '''
 
 from django.http import HttpResponse
+from django.template import loader
 
 from .models import Album, Artist, Contact, Booking
+
+def index(request):
+# request albums
+    albums = Album.objects.filter(available=True).order_by('-created_at')[:12]
+    formatted_albums = ["<li>{}</li>".format(album.title) for album in albums]
+    message = """<ul>{}</ul>""".format("\n".join(formatted_albums))
+    template = loader.get_template('store/index.html')
+    context = {'album': albums}
+    return HttpResponse(template.render(context, request=request))
+
+def listing(request):
+    albums = Album.objects.filter(available=True).order_by('-created_at')
+    formatted_albums = ["<li>{}</li>".format(album.title) for album in albums]
+    message = """<ul>{}</ul>""".format("\n".join(formatted_albums))
+    return HttpResponse(message)
+
+def detail(request, album_id):
+    album = Album.objects.get(pk=album_id)
+    artists = " ".join([artist.name for artist in album.artists.all()])
+    message = "Le nom de l'album est {}. Il a été écrit par {}".format(album.title, artists)
+    return HttpResponse(message)
 
 def search(request):
     query = request.GET.get('query')
